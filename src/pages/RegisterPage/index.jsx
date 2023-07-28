@@ -1,12 +1,20 @@
 import { FormRegister } from "../../components/FormRegister";
+import { Container, ContainerRegister, ImgContainer, TitleOne } from "./style";
+import { StyledParagraph } from "../LoginPage/style";
+import { Link } from "react-router-dom";
 
 export const RegisterPage = () => {
   return (
-    <div>
-      <h3>Crie sua conta</h3>
-      <p>Rapido de grátis, vamos nessa</p>
-      <FormRegister />
-      <button>Cadastrar</button>
-    </div>
+    <Container>
+      <ImgContainer>
+      <h3>Tech Hub</h3>
+      <Link to="/">Voltar</Link>
+      </ImgContainer>
+      <ContainerRegister>
+        <TitleOne>Crie sua conta</TitleOne>
+        <StyledParagraph>Rapido e grátis, vamos nessa</StyledParagraph>
+        <FormRegister />
+      </ContainerRegister>
+    </Container>
   );
 };

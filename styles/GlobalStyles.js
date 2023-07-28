@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
+
 export default createGlobalStyle`
   :root {
       --color-primary: #ff577f;
@@ -20,14 +21,19 @@ export default createGlobalStyle`
   padding: 0;
   outline: 0;
   box-sizing: border-box;
-  }
-  
-  body,html{
-    width: 100%;
-    height: 100vh;
-    scroll-behavior: smooth;
 
-    background-color: var(--color-grey-4);
+  
+}
+
+body,html{
+  width: 100%;
+  height: 100vh;
+
+  scroll-behavior: smooth;
+
+  font-family: "Inter", sans-serif;
+  
+  background-color: var(--color-grey-4);
   }
 
   body, input, button, textarea{
@@ -42,5 +48,9 @@ export default createGlobalStyle`
 
   li{
     list-style: none;
+  }
+
+  a{
+    text-decoration: none;
   }
 `;

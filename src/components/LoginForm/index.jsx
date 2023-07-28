@@ -1,35 +1,35 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { api } from "../../services/api";
+import { Input } from "../Input";
+import { EntryButton, LoginFormStyled } from "./style";
+import { useContext } from "react";
+import { UserContext } from "../../providers/UserContext";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { formLoginSchema } from "../FormLoginSchema";
 
 export const LoginForm = () => {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, formState: { errors }} = useForm({
+    resolver: zodResolver(formLoginSchema),
+  });
 
-  const navigate = useNavigate();
+  const { handleLogin } = useContext(UserContext);
 
-  const handleLogin = async (formData) => {
-    try {
-      const {data} = await api.post("/sessions", formData)
-      localStorage.setItem('kenzieHub@token', JSON.stringify(data.token))
-      localStorage.setItem('kenzieHub@userID', JSON.stringify(data.user.id))
-      navigate("/home")
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  
   const submit = async (formData) => {
-    await handleLogin(formData)
-    reset()
+    await handleLogin(formData);
+    reset();
   };
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
-      <label htmlFor="email">Email</label>
-      <input type="email" {...register("email")}/>
-      <label htmlFor="password">Senha</label>
-      <input type="password" {...register("password")}/>
-      <button>Entrar</button>
-    </form>
+    <LoginFormStyled onSubmit={handleSubmit(submit)}>
+      <Input label="Email" type="email" id="email" {...register("email")} />
+      {errors.email ? <p>{errors.email.message}</p> : null}
+      <Input
+        label="Senha"
+        type="password"
+        id="password"
+        {...register("password")}
+      />
+      {errors.password ? <p>{errors.password.message}</p> : null}
+      <EntryButton>Entrar</EntryButton>
+    </LoginFormStyled>
   );
 };

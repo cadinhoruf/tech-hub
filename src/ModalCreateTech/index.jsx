@@ -1,10 +1,15 @@
-import { useEffect, useRef } from "react";
-import X from "../../assets/X.svg";
+import { useContext, useEffect, useRef } from "react";
+import X from "../assets/X.svg";
 import { ModalStyled } from "./style";
 import { HeaderModal } from "./style";
-import { FormAddTec } from "../FormTec";
+import { FormAddTec } from "../FormAddTec";
+import { UserContext } from "../providers/UserContext";
 
-export const ModalCreateTech = ({ setModalOpen, setTecList }) => {
+export const ModalCreateTech = () => {
+
+  const { setModalOpen } = useContext(UserContext);
+
+
   const modalRef = useRef(null);
 
   useEffect(() => {
@@ -27,6 +32,7 @@ export const ModalCreateTech = ({ setModalOpen, setTecList }) => {
     };
   }, []);
 
+
   return (
     <div role="dialog">
       <ModalStyled ref={modalRef}>
@@ -34,7 +40,7 @@ export const ModalCreateTech = ({ setModalOpen, setTecList }) => {
           <h3>Cadastrar tecnologia</h3>
           <img src={X} alt="X" onClick={() => setModalOpen(false)} />
         </HeaderModal>
-        <FormAddTec setModalOpen={setModalOpen} setTecList={setTecList} />
+        <FormAddTec setModalOpen={setModalOpen} />
       </ModalStyled>
     </div>
   );

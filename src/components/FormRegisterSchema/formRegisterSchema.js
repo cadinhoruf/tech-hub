@@ -14,4 +14,14 @@ export const formRegisterSchema = z.object({
     .regex(/(?=.*?[A-Z])/, "É necessário ao menos uma letra maiúscula")
     .regex(/(?=.*?[a-z])/, "É necessário ao menos uma letra minúscula")
     .regex(/(?=.*?[0-9])/, "É necessário pelo menos um número"),
-});
+  confirm: z.string().min(1, "É necessário digitar sua senha novamente"),
+  bio: z.string().min(5, "Escreva algo sobre você"),
+  contact: z
+    .string()
+    .min(3, "Deixe uma informação para contato, como telefone ou o linkedIn."),
+  course_module: z.string().nonempty("Selecione uma das opções"),
+
+}).refine(({password, confirm}) => confirm === password, {
+  message: "As senhas precisam coincidir",
+  path: ["confirm"],
+})
